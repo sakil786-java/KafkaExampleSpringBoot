@@ -1,0 +1,78 @@
+Kafka
+Apache Kafka is like a communication system that helps different parts of a computer system exchange data by publishing and subscribing to topics.
+
+
+Download Kafka zip file from official website.
+Extract file
+Start Zookeeper 
+Start Kafka Server
+
+
+
+______________________________________
+Create new topic with kafka-topics
+Produce example message with kafka-console-producer
+Consume the message with kafka-console consumer
+__________________________________________
+
+first start zookeeper:
+C:\kafka_2.13-3.6.0>bin\windows\zookeeper-server-start.bat config\zookeeper.properties
+
+
+
+then start kafka: default port 9092
+
+C:\kafka_2.13-3.6.0>bin\windows\kafka-server-start.bat config\server.properties
+
+
+
+
+
+In Spring boot application consumer: for console
+bin\windows\kafka-console-consumer.bat --topic location-update-topic --from-beginning --bootstrap-server localhost:9092
+
+
+
+
+
+Windows
+___________
+Create new topic 
+>bin\windows\kafka-topics.bat --create --topic user-topic --bootstrap-server localhost:9092
+
+Produce new topic 
+bin\windows\kafka-console-producer.bat --topic user-topic --bootstrap-server localhost:9092
+
+Consuming message
+bin\windows\kafka-console-consumer.bat --topic user-topic --from-beginning --bootstrap-server localhost:9092
+
+Producer configuration
+spring.kafka.producer.bootstrap-servers=localhost:9092
+spring.kafka.producer.key-serializer=org.apache.kafka.common.serialization.StringSerializer
+spring.kafka.producer.value-serializer=org.apache.kafka.common.serialization.StringSerializer
+
+
+Consumer configuration
+server.port=8081
+spring.kafka.consumer.bootstrap-servers=localhost:9092
+spring.kafka.consumer.group-id=group-id
+spring.kafka.consumer.auto-offset-reset=earliest
+spring.kafka.consumer.key-deserializer=org.apache.kafka.common.serialization.StringDeserializer
+spring.kafka.consumer.value-deserializer=org.apache.kafka.common.serialization.StringDeserializer
+
+________________
+ 
+
+
+
+
+
+
+If kafka not working then stop zookeeper
+
+For task kill
+netstat -ano | find/i "listening"
+
+netstat -ano | findstr :2181
+
+taskkill/F /PID 28972
